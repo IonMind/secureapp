@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.defender.secureapp.ExceptionHandler.NoValuePresentException;
@@ -26,10 +30,13 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     CourseService courseService;
 
+    @Autowired 
+    PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional
     public Student saveStudent(Student s) {
-
+        s.setPassword(passwordEncoder.encode(s.getPassword()));
         modifyCourseListIfAlreadyInDB(s);
         return studentRepo.save(s);
     }
@@ -88,6 +95,15 @@ public class StudentServiceImpl implements StudentService {
             
         }
         courses.addAll(coursesInDB);
+    }
+
+
+    //DAO for login
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Student s = studentRepo.findByName(username).orElseThrow(() -> new UsernameNotFoundException("No Student with name : "+username));
+        UserDetails studentDetails = User.withUsername(s.getName()).password(s.getPassword()).build();
+        return studentDetails;
     }
 
 

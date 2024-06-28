@@ -3,6 +3,8 @@ package com.defender.secureapp.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.defender.secureapp.utils.STUDENT_ROLE;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,9 +28,7 @@ import lombok.Setter;
 @Setter
 public class Student {
 
-    enum STUDENT_ROLE {
-        ADMIN, USER
-    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
