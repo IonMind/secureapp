@@ -59,5 +59,16 @@ public class Course {
         }
         students.clear();
     }
+
+    @Override
+    public int hashCode() {
+        return this.abbriviation.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Course that = (Course) obj;
+        return this.getAbbriviation().equals(that.getAbbriviation());
+    }
     
 }

@@ -4,6 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.defender.secureapp.utils.STUDENT_ROLE;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -45,7 +49,7 @@ public class Student {
     private String password;
 
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)    
     private STUDENT_ROLE student_role = STUDENT_ROLE.USER;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)

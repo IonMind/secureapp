@@ -1,7 +1,6 @@
 package com.defender.secureapp.Config;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.defender.secureapp.service.StudentService;
+import com.defender.secureapp.utils.STUDENT_ROLE;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +24,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
-                (authorize) -> authorize.requestMatchers("/api/public/**").permitAll().anyRequest().authenticated());
+                (authorize) -> authorize.requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/api/master/**").hasRole(STUDENT_ROLE.ADMIN.getRole())
+                .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.csrf(t -> t.disable());
         return http.build();

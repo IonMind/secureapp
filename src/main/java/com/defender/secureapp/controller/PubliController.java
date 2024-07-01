@@ -1,6 +1,7 @@
 package com.defender.secureapp.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,8 +37,8 @@ public class PubliController {
     }
 
     @GetMapping("/courses")
-    public ResponseEntity<List<Course>> getAllCourses() {
-        return new ResponseEntity<List<Course>>(courseService.getAllCourses(), HttpStatus.OK);
+    public ResponseEntity<Set<Course>> getAllCourses() {
+        return new ResponseEntity<Set<Course>>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
     @PostMapping("/saveStudent")

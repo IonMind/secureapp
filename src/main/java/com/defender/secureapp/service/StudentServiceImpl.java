@@ -81,20 +81,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     protected void modifyCourseListIfAlreadyInDB(Student s){
-        Set<Course> coursesInDB = new HashSet<>();
-        Set<Course> courses = s.getCourses();
-        
-        Iterator<Course> itr = courses.iterator();
-        while (itr.hasNext()) {
-            Course course = itr.next();
-            Course courseAlreadyInDB = courseService.getCourseBy(course.getAbbriviation());
-            if ((courseAlreadyInDB != null)) {
-                itr.remove();
-                coursesInDB.add(courseAlreadyInDB);
-            }
-            
-        }
-        courses.addAll(coursesInDB);
+        Set<Course> coursesInDB = courseService.getAllCourses();
+        s.getCourses().removeAll(coursesInDB);
+        s.getCourses().addAll(coursesInDB);
     }
 
 
@@ -102,7 +91,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Student s = studentRepo.findByName(username).orElseThrow(() -> new UsernameNotFoundException("No Student with name : "+username));
-        UserDetails studentDetails = User.withUsername(s.getName()).password(s.getPassword()).build();
+        UserDetails studentDetails = User.withUsername(s.getName()).password(s.getPassword()).roles(s.getStudent_role().getRole()).build();
         return studentDetails;
     }
 
