@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.defender.secureapp.model.Course;
 import com.defender.secureapp.model.Student;
-import com.defender.secureapp.service.CourseService;
-import com.defender.secureapp.service.StudentService;
+import com.defender.secureapp.services.CourseService;
+import com.defender.secureapp.services.StudentService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +35,7 @@ public class PubliController {
         return new ResponseEntity<List<Course>>(courseService.getCoursesBy(name), HttpStatus.OK);
 
     }
+
 
     @GetMapping("/courses")
     public ResponseEntity<Set<Course>> getAllCourses() {

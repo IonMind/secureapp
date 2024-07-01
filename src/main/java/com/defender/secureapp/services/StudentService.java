@@ -1,4 +1,4 @@
-package com.defender.secureapp.service;
+package com.defender.secureapp.services;
 
 import java.util.List;
 import java.util.Set;

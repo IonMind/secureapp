@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.defender.secureapp.service.StudentService;
+import com.defender.secureapp.services.StudentService;
 import com.defender.secureapp.utils.STUDENT_ROLE;
 
 @Configuration
@@ -31,6 +31,8 @@ public class SecurityConfig {
         http.csrf(t -> t.disable());
         return http.build();
     }
+
+    
 
     @Bean
     public AuthenticationManager authenticationManager(StudentService studentService, PasswordEncoder passwordEncoder) {

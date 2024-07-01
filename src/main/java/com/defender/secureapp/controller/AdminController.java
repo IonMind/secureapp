@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.defender.secureapp.model.Course;
 import com.defender.secureapp.model.Student;
-import com.defender.secureapp.service.CourseService;
-import com.defender.secureapp.service.StudentService;
+import com.defender.secureapp.services.CourseService;
+import com.defender.secureapp.services.StudentService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,13 +23,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/master")
 public class AdminController {
 
+    
+
     @Autowired
     CourseService courseService;
     @Autowired
     StudentService studenService;
 
+    
+    
     @PostMapping("/addCourses")
     public ResponseEntity<List<Course>> saveCourse(@RequestBody List<Course> coursesList) {
+        
         return new ResponseEntity<List<Course>>(courseService.saveCourses(coursesList), HttpStatus.OK);
     }
 
